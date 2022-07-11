@@ -21,8 +21,8 @@ import logging
 
 logger = logging.getLogger('jobcore:general')
 # stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
+ 
+stripe.api_key = "sk_test_1TXcRvV5Nw6YkHAUV2pmZU2J00vnmMWTZu"
 # class SuccessView(TemplateView):
 #     template_name = "success.html"
 
@@ -224,3 +224,24 @@ class GetCSRFToken(APIView):
     def get(self, request, format=None):
         return { 'csrf_cookie': csrf_cookie }
 
+class StripeSingleEmployeePayment(APIView):
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+            try:
+                transfer = stripe.Transfer.create(
+                    amount=400, #cents
+                    currency="usd",
+                    destination="acct_1LKPFwPGGk1lE6Md", 
+                    transfer_group="Debe decir que numero de nomina o fecha", #opcional
+                    )
+                print("transfer#####", transfer)
+                
+                if transfer is not None:
+                    return Response({"message": "Payment received", 'status': 200 })
+            
+            except Exception as e:
+                # send an email to ourselves
+                logger.error('StripeIntentView:post: %s' % str(e))
+                return Response({"message": "A serious error occurred. We have been notifed."}, status=status.HTTP_400_BAD_REQUEST)
+
+            return Response({"message": "Invalid data received"}, status=status.HTTP_400_BAD_REQUEST)

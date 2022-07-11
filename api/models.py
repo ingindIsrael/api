@@ -102,7 +102,7 @@ class Employer(models.Model):
     badges = models.ManyToManyField(Badge, blank=True)
     status = models.CharField(max_length=25, choices=EMPLOYER_STATUS, default=APPROVED, blank=True)
    
-    # talents on employer's favlist's will be automatically accepted
+    # talents on employer's favlist's will be automatically accepted 
     automatically_accept_from_favlists = models.BooleanField(default=True)
 
     # the company can configure how it wants the payroll period
@@ -116,7 +116,7 @@ class Employer(models.Model):
         blank=True)
     last_payment_period = models.DateTimeField(default=None, null=True)
 
-    # if this option is None, the talent will be able to checkout anytime
+    # if this option is None, the talent will be able to checkout anytime.
     # he wants By default, he can only checkout within 15 min of the starting
     # time (before or after)
 

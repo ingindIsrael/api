@@ -5,7 +5,7 @@ from api.serializers.auth_serializer import CustomJWTSerializer
 from api.views.deductions_view import DeductionAPIView, DeductionDetailAPIView
 
 from api.views.subscription_payment import (
-    StripeIntentView, GetCSRFToken
+    StripeIntentView, GetCSRFToken, StripeSingleEmployeePayment
 )
 
 from api.views.hooks import (
@@ -167,6 +167,8 @@ urlpatterns = [
     path('csrf_cookie', GetCSRFToken.as_view(), name='csrf_cookie'),
     # path('admin/', admin.site.urls),
     path('create-payment-intent', StripeIntentView.as_view(), name='create-payment-intent'),
+    
+    path('create-payment-single-emp', StripeSingleEmployeePayment.as_view(), name='create-payment-single-emp'),
     # path('webhooks/stripe/', stripe_webhook, name='stripe-webhook'),
     # path('cancel/', CancelView.as_view(), name='cancel'),
     # path('success/', SuccessView.as_view(), name='success'),

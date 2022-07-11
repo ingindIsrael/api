@@ -1,0 +1,3 @@
+PATH="/usr/bin:${PATH}"
+export PATH
+alias python="/home/gitpod/.pyenv/shims/python3"
