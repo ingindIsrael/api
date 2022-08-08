@@ -22,7 +22,7 @@ import logging
 logger = logging.getLogger('jobcore:general')
 # stripe.api_key = settings.STRIPE_SECRET_KEY
  
-stripe.api_key = "sk_test_1TXcRvV5Nw6YkHAUV2pmZU2J00vnmMWTZu"
+# stripe.api_key = "sk_live_##aqui va un hash"
 # class SuccessView(TemplateView):
 #     template_name = "success.html"
 
@@ -228,14 +228,15 @@ class StripeSingleEmployeePayment(APIView):
     @csrf_exempt
     def post(self, request, *args, **kwargs):
             try:
-                transfer = stripe.Transfer.create(
-                    amount=400, #cents
-                    currency="usd",
-                    destination="acct_1LKPFwPGGk1lE6Md", 
-                    transfer_group="Debe decir que numero de nomina o fecha", #opcional
-                    )
-                print("transfer#####", transfer)
-                
+                # payout = stripe.Payout.create(
+                #     amount=100, #cents
+                #     currency="usd",
+                #     stripe_account="acct_1LKPFwPGGk1lE6Md", 
+                #     # transfer_group="Debe decir que numero de nomina o fecha", #opcional
+                #     )
+                # print("payout#####", payout)
+                balance = stripe.Balance.retrieve()
+                print("balance#####", balance)
                 if transfer is not None:
                     return Response({"message": "Payment received", 'status': 200 })
             
