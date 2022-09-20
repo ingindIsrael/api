@@ -56,7 +56,7 @@ class EmployeeDocumentTestSuite(TestCase, WithMakeUser):
             "employee_id": Employee.objects.all()[0].id,
             "document_type": mixer.blend('api.Document')
         }
-
+        print('Employee.objects.all()[0].id###', Employee.objects.all()[0].id)
         EmployeeDocument.objects.create(**document)
         url = reverse_lazy('api:employee-document')
         self.client.force_login(self.test_user_employee)
@@ -67,3 +67,4 @@ class EmployeeDocumentTestSuite(TestCase, WithMakeUser):
         self.assertEquals(json_response[0].get("document"), document.get("document"), response.content)
         self.assertEquals(json_response[0].get("employee"), document.get("employee_id"), response.content)
         self.assertEquals(json_response[0].get("name"), 'Untitled document', response.content)
+        
